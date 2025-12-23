@@ -1,0 +1,69 @@
+<html>
+    <style>
+        h1,h2,h3 {
+          color: Black;
+          font-family: sans-serif;
+          font-size: 150%;
+        }
+        p {
+          color: Black;
+          font-family: sans-serif;
+          font-size: 120%;
+        }
+    </style>
+    
+    <h1> 
+        Hello! I'm Kevin Crooks Jr.
+    </h1>
+    <body>
+
+        <h3> Contact Information: </h3>
+        <p> Email: kevincrooksjr@outlook.com</p>
+        <p> LinkedIn: </p> <a href="https://www.linkedin.com/in/kevin-crooks-jr-156a88271/">Link is here</a>
+
+        <h2> About Me: </h2>
+        <p> - I'm undergraduate student at SUNY University at Buffalo Majoring Computer Science with a Minor in CyberSecurity </p>
+        <p> - Undergraduate Teaching Assistant for 3 courses: Systems Programming, Intro to Computer Security, and Intro to Computer Science </p>
+        <p> - Pursuing a Certification for CompTIA Security+ and CompTIA Pentest+ </p>
+        <p> - I'm the Treasurer of Student Excellence in Cybersecurity Club and a member of UB's Esports Clubs </p>
+        <p> - Read up the latest Cybersecurity news and I like to Play Video Games (Rocket League), jigsaw puzzles, and reading the DUNE novels </p>
+
+        <h2> Passions/Interests: </h2>
+        <p> - I want to work in the Cybersecurity industry as a Security engineer for Application or Software Security </p>
+        <p> - I'm eager to learn more about Blockchain security </p>
+
+
+        <h2> Programming Languages/Tools: </h2>
+        <p> Python</p>
+        <p> Javascript</p>
+        <p> HTML</p>
+        <p> Java </p>
+        <p> C </p>
+        <p> MIPS & ARM Assembly Language (32 bit)</p>
+        <p> OCaml</p>
+        <p> WireShark</p>
+        <p> Pcap</p>
+        <p> Scapy</p>
+        <p> Snort - Open source IPS(Intrusion Detection System)</p>
+    
+        <h2> Relevant Coursework that's Completed/In-Progress: </h2>
+        <p> Intro to Computer Science 1 & 2 </p>
+        <p> System Programming </p>
+        <p> Data Structures </p>
+        <p> Algorithms & Complexity </p>
+        <p> Computer Organization </p>
+        <p> Programming Languages </p>
+        <p> Intro to Computer Security</p>
+        <p> Intro to Microprocessors </p>
+        <p> Algorithms for Modern Computing Systems </p>
+        <p> Software Engineering </p>
+        <p> Systems Security </p>
+        <p> Intro to Artificial Intelligence </p>
+        <p> Calculus 1 & 2</p>
+        <p> Discrete Math </p>
+        <p> Intro Linear Algebra </p>
+        <p> Intro to Probility </p>
+
+    
+    </body>
+</html>
