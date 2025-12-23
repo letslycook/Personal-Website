@@ -18,7 +18,7 @@ No posts yet — first technical writeup coming soon.
 
 ## Links
 [View Resume]({{ '/assets/resume/Kevin_Crooks_Jr_Resume.pdf' | relative_url }})
-{: .btn .btn--primary .btn--large }
+{: .btn .btn--inverse .btn--large }
 
 [GitHub](https://github.com/letslycook)
 {: .btn .btn--inverse .btn--large }
