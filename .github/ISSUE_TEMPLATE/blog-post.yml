@@ -1,0 +1,13 @@
+name: New Blog Post
+description: Write a post in Markdown and publish it to the site
+title: "Blog: "
+labels: ["blog-post"]
+body:
+  - type: textarea
+    id: content
+    attributes:
+      label: Post content (Markdown)
+      description: Write your post here. Full Markdown supported.
+      render: markdown
+    validations:
+      required: true

@@ -1,0 +1,81 @@
+name: Publish blog post from issue
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  publish:
+    if: github.actor == github.repository_owner && contains(github.event.issue.labels.*.name, 'blog-post')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create post file from issue
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          python3 - <<'PY'
+          import os, re
+          from datetime import date
+
+          title = (os.environ.get("ISSUE_TITLE","") or "").strip()
+          body  = (os.environ.get("ISSUE_BODY","") or "").rstrip() + "\n"
+          issue_number = os.environ.get("ISSUE_NUMBER","")
+
+          # Remove "Blog:" prefix if present
+          title = re.sub(r"^Blog:\s*", "", title).strip() or "Post"
+
+          def slugify(s):
+              s = s.lower()
+              s = re.sub(r"[^a-z0-9\s-]", "", s)
+              s = re.sub(r"\s+", "-", s.strip())
+              s = re.sub(r"-{2,}", "-", s)
+              return s or "post"
+
+          slug = slugify(title)
+          filename = f"_posts/{date.today().isoformat()}-{slug}.md"
+
+          safe_title = title.replace("\\", "\\\\").replace('"', '\\"')
+
+          fm = [
+              "---",
+              f'title: "{safe_title}"',
+              f"date: {date.today().isoformat()}",
+              "toc: true",
+              "toc_sticky: true",
+              "---",
+              "",
+          ]
+
+          os.makedirs("_posts", exist_ok=True)
+          with open(filename, "w", encoding="utf-8") as f:
+              f.write("\n".join(fm) + body)
+
+          print("Created", filename, "from issue", issue_number)
+          PY
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add _posts/*.md
+          git commit -m "Publish blog post from issue" || exit 0
+          git push
+
+      - name: Close the issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_URL: ${{ github.event.issue.url }}
+        run: |
+          curl -sS -X PATCH \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "$ISSUE_URL" \
+            -d '{"state":"closed"}'
