@@ -2,7 +2,7 @@ name: Publish blog post from issue
 
 on:
   issues:
-    types: [opened, edited]
+    types: [opened, edited, labeled]
 
 permissions:
   contents: write
@@ -10,8 +10,11 @@ permissions:
 
 jobs:
   publish:
-    if: github.actor == github.repository_owner && contains(github.event.issue.labels.*.name, 'blog-post')
+    if: |
+      github.actor == github.repository_owner &&
+      contains(join(github.event.issue.labels.*.name, ','), 'blog-post')
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -19,7 +22,6 @@ jobs:
         env:
           ISSUE_TITLE: ${{ github.event.issue.title }}
           ISSUE_BODY: ${{ github.event.issue.body }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
           python3 - <<'PY'
           import os, re
@@ -27,9 +29,7 @@ jobs:
 
           title = (os.environ.get("ISSUE_TITLE","") or "").strip()
           body  = (os.environ.get("ISSUE_BODY","") or "").rstrip() + "\n"
-          issue_number = os.environ.get("ISSUE_NUMBER","")
 
-          # Remove "Blog:" prefix if present
           title = re.sub(r"^Blog:\s*", "", title).strip() or "Post"
 
           def slugify(s):
@@ -54,11 +54,12 @@ jobs:
               "",
           ]
 
+          import os
           os.makedirs("_posts", exist_ok=True)
           with open(filename, "w", encoding="utf-8") as f:
               f.write("\n".join(fm) + body)
 
-          print("Created", filename, "from issue", issue_number)
+          print("Created", filename)
           PY
 
       - name: Commit and push
