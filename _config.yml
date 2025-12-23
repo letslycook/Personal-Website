@@ -6,6 +6,7 @@ baseurl: "/Personal-Website"
 remote_theme: "mmistakes/minimal-mistakes"
 
 plugins:
+  - jekyll-include-cache
   - jekyll-remote-theme
   - jekyll-feed
   - jekyll-sitemap
