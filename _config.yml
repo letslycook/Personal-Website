@@ -1,0 +1,28 @@
+title: "Kevin Crooks Jr."
+description: "Computer Science @ UB | Cybersecurity | Projects + Updates"
+url: "https://letslycook.github.io"
+baseurl: "/Personal-Website"
+
+remote_theme: "mmistakes/minimal-mistakes"
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-feed
+  - jekyll-sitemap
+
+author:
+  name: "Kevin Crooks Jr."
+  email: "kevincrooksjr@outlook.com"
+
+# Optional but nice for SEO/social previews
+minimal_mistakes_skin: "default"
+
+# If you want icons/links on the site
+footer:
+  links:
+    - label: "LinkedIn"
+      icon: "fab fa-linkedin"
+      url: "https://www.linkedin.com/in/YOUR-LINKEDIN/"
+    - label: "GitHub"
+      icon: "fab fa-github"
+      url: "https://github.com/letslycook"
