@@ -57,7 +57,9 @@ jobs:
           slug = slugify(title)
           filename = f"_posts/{date.today().isoformat()}-{slug}.md"
 
-          fm = ["---", f'title: "{title.replace(\'"\', r\'\\\"\')}"', f"date: {date.today().isoformat()}"]
+          safe_title = title.replace("\\", "\\\\").replace('"', '\\"')
+          fm = ["---", f'title: "{safe_title}"', f"date: {date.today().isoformat()}"]
+
           if cat:
               fm.append(f"categories: [{cat}]")
           if tags:
