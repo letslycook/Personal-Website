@@ -11,4 +11,7 @@ permalink: /about/
 
 ## Interests
 - AppSec / Software Security Engineering
-- Blockchain security
+- HomeLabing (Promox, Pfsense, docker)
+- Discovering new music
+- Playing Video Games (Rocket League)
+- Enthusiast Cars
