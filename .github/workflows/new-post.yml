@@ -37,20 +37,25 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Create post file
+        env:
+          POST_TITLE: ${{ inputs.title }}
+          POST_BODY: ${{ inputs.body }}
+          POST_TAGS: ${{ inputs.tags }}
+          POST_CATEGORY: ${{ inputs.category }}
         run: |
           python3 - <<'PY'
-          import re, os
+          import os, re
           from datetime import date
 
-          title = """${{ inputs.title }}""".strip()
-          body  = """${{ inputs.body }}""".rstrip() + "\n"
-          tags  = """${{ inputs.tags }}""".strip()
-          cat   = """${{ inputs.category }}""".strip()
+          title = os.environ.get("POST_TITLE", "").strip()
+          body  = (os.environ.get("POST_BODY", "") or "").rstrip() + "\n"
+          tags  = os.environ.get("POST_TAGS", "").strip()
+          cat   = os.environ.get("POST_CATEGORY", "").strip()
 
           def slugify(s):
               s = s.lower()
-              s = re.sub(r"[^a-z0-9\\s-]", "", s)
-              s = re.sub(r"\\s+", "-", s.strip())
+              s = re.sub(r"[^a-z0-9\s-]", "", s)
+              s = re.sub(r"\s+", "-", s.strip())
               s = re.sub(r"-{2,}", "-", s)
               return s or "post"
 
@@ -58,18 +63,24 @@ jobs:
           filename = f"_posts/{date.today().isoformat()}-{slug}.md"
 
           safe_title = title.replace("\\", "\\\\").replace('"', '\\"')
-          fm = ["---", f'title: "{safe_title}"', f"date: {date.today().isoformat()}"]
+
+          fm = [
+              "---",
+              f'title: "{safe_title}"',
+              f"date: {date.today().isoformat()}",
+          ]
 
           if cat:
               fm.append(f"categories: [{cat}]")
           if tags:
               tag_list = [t.strip() for t in tags.split(",") if t.strip()]
               fm.append("tags: [" + ", ".join(tag_list) + "]")
+
           fm += ["toc: true", "toc_sticky: true", "---", ""]
 
           os.makedirs("_posts", exist_ok=True)
           with open(filename, "w", encoding="utf-8") as f:
-              f.write("\\n".join(fm) + body)
+              f.write("\n".join(fm) + body)
 
           print("Created", filename)
           PY
