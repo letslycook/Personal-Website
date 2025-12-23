@@ -14,4 +14,4 @@ permalink: /about/
 - HomeLabing (Promox, Pfsense, docker)
 - Discovering new music
 - Playing Video Games (Rocket League)
-- Enthusiast Cars
+- A Car Enthusiast at heart
